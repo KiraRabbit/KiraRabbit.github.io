@@ -1,0 +1,125 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AspectJ的Execution表达式 | 你猜我穿过鸟居，有没有遇见神明</title><meta name="description" content="在使用spring框架配置AOP的时候，不管是通过XML配置文件还是注解的方式都需要定义pointcut”切入点”例如定义切入点表达式  execution (* com.sample.service.impl...(..))execution()是最常用的切点函数，其语法如下所示：  整个表达式可以分为五个部分： 1、execution(): 表达式主体。 2、第一个号：表示返回类型，号表示所有"><meta name="keywords" content="Java"><meta name="author" content="Kira Rabbit"><meta name="copyright" content="Kira Rabbit"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="https://i.loli.net/2020/08/29/euWXL4ENrA8cQtk.gif"><link rel="canonical" href="https://kirarabbit.github.io/2020/08/30/AspectJ%E7%9A%84Execution%E8%A1%A8%E8%BE%BE%E5%BC%8F/"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin="crossorigin"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta property="og:type" content="article"><meta property="og:title" content="AspectJ的Execution表达式"><meta property="og:url" content="https://kirarabbit.github.io/2020/08/30/AspectJ%E7%9A%84Execution%E8%A1%A8%E8%BE%BE%E5%BC%8F/"><meta property="og:site_name" content="你猜我穿过鸟居，有没有遇见神明"><meta property="og:description" content="在使用spring框架配置AOP的时候，不管是通过XML配置文件还是注解的方式都需要定义pointcut”切入点”例如定义切入点表达式  execution (* com.sample.service.impl...(..))execution()是最常用的切点函数，其语法如下所示：  整个表达式可以分为五个部分： 1、execution(): 表达式主体。 2、第一个号：表示返回类型，号表示所有"><meta property="og:image" content="https://i.loli.net/2020/08/29/PycYU1n63olXjCm.png"><meta property="article:published_time" content="2020-08-29T18:23:00.000Z"><meta property="article:modified_time" content="2020-08-29T18:24:34.519Z"><meta name="twitter:card" content="summary"><script>var activateDarkMode = function () {
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#000')
+  }
+}
+var activateLightMode = function () {
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#fff')
+  }
+}
+
+var getCookies = function (name) {
+  const value = `; ${document.cookie}`
+  const parts = value.split(`; ${name}=`)
+  if (parts.length === 2) return parts.pop().split(';').shift()
+}
+
+var autoChangeMode = 'false'
+var t = getCookies('theme')
+if (autoChangeMode === '1') {
+  var isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+  var isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+  var isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined) {
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport) {
+      console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour <= 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+    }
+    window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+      if (Cookies.get('theme') === undefined) {
+        e.matches ? activateDarkMode() : activateLightMode()
+      }
+    })
+  } else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else if (autoChangeMode === '2') {
+  now = new Date()
+  hour = now.getHours()
+  isNight = hour <= 6 || hour >= 18
+  if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else {
+  if (t === 'dark') activateDarkMode()
+  else if (t === 'light') activateLightMode()
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  hexoversion: '5.1.1',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: true,
+  copyright: undefined,
+  ClickShowText: {"text":"○,×,△,□","fontSize":"23px"},
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  baiduPush: false,
+  highlightCopy: true,
+  highlightLang: true,
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: false    
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isSidebar: false,
+  postUpdate: '2020-08-30 02:24:34'
+}</script><noscript><style>
+#nav {
+  opacity: 1
+}
+.justified-gallery img {
+  opacity: 1
+}
+</style></noscript><meta name="generator" content="Hexo 5.1.1"></head><body><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" data-lazy-src="https://i.loli.net/2020/08/29/euWXL4ENrA8cQtk.gif" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">15</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">10</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/movie/"><i class="fa-fw fas fa-video"></i><span> 视频</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://i.loli.net/2020/08/29/PycYU1n63olXjCm.png)"><nav id="nav"><span class="pull-left" id="blog_name"><a class="blog_title" id="site-name" href="/">你猜我穿过鸟居，有没有遇见神明</a></span><span class="pull-right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/movie/"><i class="fa-fw fas fa-video"></i><span> 视频</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><span class="toggle-menu close"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><div id="post-title"><div class="posttitle">AspectJ的Execution表达式</div></div><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-08-29T18:23:00.000Z" title="发表于 2020-08-30 02:23:00">2020-08-30</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2020-08-29T18:24:34.519Z" title="更新于 2020-08-30 02:24:34">2020-08-30</time></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><p>在使用spring框架配置AOP的时候，不管是通过XML配置文件还是注解的方式都需要定义pointcut”切入点”<br>例如定义切入点表达式  execution (* com.sample.service.impl..<em>.</em>(..))<br>execution()是最常用的切点函数，其语法如下所示：</p>
+<p> 整个表达式可以分为五个部分：<br> 1、execution(): 表达式主体。<br> 2、第一个<em>号：表示返回类型，</em>号表示所有的类型。<br> 3、包名：表示需要拦截的包名，后面的两个句点表示当前包和当前包的所有子包，com.sample.service.impl包、子孙包下所有类的方法。<br> 4、第二个<em>号：表示类名，</em>号表示所有的类。<br> 5、*(..):最后这个星号表示方法名，*号表示所有的方法，后面括弧里面表示方法的参数，两个句点表示任何参数。</p>
+<p>AspectJ的Execution表达式<br>execution()<br>execution()是最常用的切点函数，其语法如下所示：</p>
+<p>execution(&lt;修饰符模式&gt;? &lt;返回类型模式&gt; &lt;方法名模式&gt;(&lt;参数模式&gt;) &lt;异常模式&gt;?)  除了返回类型模式、方法名模式和参数模式外，其它项都是可选的。与其直接讲解该方法的使用规则，还不如通过一个个具体的例子进行理解。下面，我们给出各 种使用execution()函数实例。</p>
+<p>1)通过方法签名定义切点<br> execution(public * <em>(..))<br>匹配所有目标类的public方法，但不匹配SmartSeller和protected void showGoods()方法。第一个</em>代表返回类型，第二个*代表方法名，而..代表任意入参的方法；</p>
+<p> execution(* <em>To(..))l<br>匹配目标类所有以To为后缀的方法。它匹配NaiveWaiter和NaughtyWaiter的greetTo()和serveTo()方法。第一个</em>代表返回类型，而*To代表任意以To为后缀的方法；</p>
+<p>2)通过类定义切点<br> execution(* com.baobaotao.Waiter.<em>(..))<br>匹配Waiter接口的所有方法，它匹配NaiveWaiter和NaughtyWaiter类的greetTo()和serveTo()方法。第一个</em>代表返回任意类型，com.baobaotao.Waiter.*代表Waiter接口中的所有方法；</p>
+<p> execution(* com.baobaotao.Waiter+.*(..))<br>匹 配Waiter接口及其所有实现类的方法，它不但匹配NaiveWaiter和NaughtyWaiter类的greetTo()和serveTo()这 两个Waiter接口定义的方法，同时还匹配NaiveWaiter#smile()和NaughtyWaiter#joke()这两个不在Waiter 接口中定义的方法。</p>
+<p>3)通过类包定义切点<br>在类名模式串中，“.<em>”表示包下的所有类，而“..<em>”表示包、子孙包下的所有类。<br> execution(</em> com.baobaotao.</em>(..))<br>匹配com.baobaotao包下所有类的所有方法；</p>
+<p> execution(* com.baobaotao..<em>(..))<br>匹 配com.baobaotao包、子孙包下所有类的所有方法，如com.baobaotao.dao，com.baobaotao.servier以及 com.baobaotao.dao.user包下的所有类的所有方法都匹配。“..”出现在类名中时，后面必须跟“</em>”，表示包、子孙包下的所有类；</p>
+<p> execution(* com..*.<em>Dao.find</em>(..))<br>匹配包名前缀为com的任何包下类名后缀为Dao的方法，方法名必须以find为前缀。如com.baobaotao.UserDao#findByUserId()、com.baobaotao.dao.ForumDao#findById()的方法都匹配切点。</p>
+<p>4)通过方法入参定义切点<br>切点表达式中方法入参部分比较复杂，可以使用“<em>”和“ ..”通配符，其中“</em>”表示任意类型的参数，而“..”表示任意类型参数且参数个数不限。</p>
+<p> execution(* joke(String,int)))<br>匹 配joke(String,int)方法，且joke()方法的第一个入参是String，第二个入参是int。它匹配 NaughtyWaiter#joke(String,int)方法。如果方法中的入参类型是java.lang包下的类，可以直接使用类名，否则必须使 用全限定类名，如joke(java.util.List,int)；</p>
+<p> execution(* joke(String,*)))<br>匹 配目标类中的joke()方法，该方法第一个入参为String，第二个入参可以是任意类型，如joke(String s1,String s2)和joke(String s1,double d2)都匹配，但joke(String s1,double d2,String s3)则不匹配；</p>
+<p> execution(* joke(String,..)))<br>匹配目标类中的joke()方法，该方法第 一个入参为String，后面可以有任意个入参且入参类型不限，如joke(String s1)、joke(String s1,String s2)和joke(String s1,double d2,String s3)都匹配。</p>
+<p> execution(* joke(Object+)))<br>匹 配目标类中的joke()方法，方法拥有一个入参，且入参是Object类型或该类的子类。它匹配joke(String s1)和joke(Client c)。如果我们定义的切点是execution(* joke(Object))，则只匹配joke(Object object)而不匹配joke(String cc)或joke(Client c)。</p>
+<p>args()和@args()<br>args()函数的入参是类名，@args()函数的入参必须是注解类的类名。虽然args()允许在类名后使用+通配符后缀，但该通配符在此处没有意义：添加和不添加效果都一样。</p>
+<p>1)args()<br>该函数接受一个类名，表示目标类方法入参对象按类型匹配于指定类时，切点匹配，如下面的例子：<br>args(com.baobaotao.Waiter)<br>表 示运行时入参是Waiter类型的方法，它和execution(* <em>(com.baobaotao.Waiter))区别在于后者是针对类方法的签名而言的，而前者则针对运行时的入参类型而言。如 args(com.baobaotao.Waiter)既匹配于addWaiter(Waiter waiter)，也匹配于addNaiveWaiter(NaiveWaiter naiveWaiter)，而execution(</em> <em>(com.baobaotao.Waiter))只匹配addWaiter(Waiter waiter)方法；实际上，args(com.baobaotao.Waiter)等价于execution(</em> *(com.baobaotao.Waiter+))，当然也等价于args(com.baobaotao.Waiter+)。</p>
+<p>2)@args()<br>该函数接受一个注解类的类名，当方法的运行时入参对象标注发指定的注解时，方法匹配切点。这个切点函数的匹配规则不太容易理解，我们通过以下示意图对此进行详细讲解：<br>类别<br>函数<br>入参<br>说明<br>方法切点函数<br>execution()<br>方法<br>匹配模式串<br>表示满足某一匹配模式的所有目标类方法连接点。如execution(* greetTo(..))表示所有目标类中的greetTo()方法。</p>
+<p>@annotation()<br>方法注<br>解类名<br>表示标注了特定注解的目标方法连接点。如@annotation(com.baobaotao.anno.NeedTest)表示任何标注了@NeedTest注解的目标类方法。<br>方法入参切点函数<br>args()<br>类名<br>通过判别目标类方法运行时入参对象的类型定义指定连接点。如args(com.baobaotao.Waiter)表示所有有且仅有一个按类型匹配于Waiter的入参的方法。</p>
+<p>@args()<br>类型注<br>解类名<br>通过判别目标方法的运行时入参对象的类是否标注特定注解来指定连接点。如@args(com.baobaotao.Monitorable)表示任何这样的一个目标方法：它有一个入参且入参对象的类标注@Monitorable注解。<br>目标类切点函数<br>within()<br>类名匹配串<br>   表 示特定域下的所有连接点。如within(com.baobaotao.service.*)表示com.baobaotao.service包中的所有 连接点，也即包中所有类的所有方法，而within(com.baobaotao.service.*Service)表示在 com.baobaotao.service包中，所有以Service结尾的类的所有连接点。</p>
+<p>target()<br>类名<br>   假如目标类按类型匹配于指定类，则目标类的所有连接点匹配这个切点。如通过target(com.baobaotao.Waiter)定义的切点，Waiter、以及Waiter实现类NaiveWaiter中所有连接点都匹配该切点。</p>
+<p>@within()<br>类型注解类名<br>   假如目标类按类型匹配于某个类A，且类A标注了特定注解，则目标类的所有连接点匹配这个切点。<br>   如@within(com.baobaotao.Monitorable)定义的切点，假如Waiter类标注了@Monitorable注解，则Waiter以及Waiter实现类NaiveWaiter类的所有连接点都匹配。</p>
+<p>@target()<br>类型注解类名<br>   目标类标注了特定注解，则目标类所有连接点匹配该切点。如@target(com.baobaotao.Monitorable)，假如NaiveWaiter标注了@Monitorable，则NaiveWaiter所有连接点匹配切点。<br>代理类切点函数<br>this()<br>类名<br> 代理类按类型匹配于指定类，则被代理的目标类所有连接点匹配切点。这个函数比较难理解，这里暂不举例，留待后面详解。</p>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Kira Rabbit</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://kirarabbit.github.io/2020/08/30/AspectJ%E7%9A%84Execution%E8%A1%A8%E8%BE%BE%E5%BC%8F/">https://kirarabbit.github.io/2020/08/30/AspectJ%E7%9A%84Execution%E8%A1%A8%E8%BE%BE%E5%BC%8F/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://kirarabbit.github.io" target="_blank">你猜我穿过鸟居，有没有遇见神明</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Java/">Java</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/08/29/PycYU1n63olXjCm.png" data-sites="wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2020/08/30/StringRedisTemplate%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/"><img class="prev-cover" data-lazy-src="https://i.loli.net/2020/08/29/PycYU1n63olXjCm.png" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">StringRedisTemplate常用方法</div></div></a></div><div class="next-post pull-right"><a href="/2020/08/30/Jdk%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E5%92%8CCglib%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86/"><img class="next-cover" data-lazy-src="https://i.loli.net/2020/08/29/PycYU1n63olXjCm.png" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Jdk动态代理和Cglib动态代理</div></div></a></div></nav><div class="relatedPosts"><div class="relatedPosts_headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts_list"><div class="relatedPosts_item"><a href="/2020/08/30/Java下载工具类/" title="Java下载工具类"><img class="relatedPosts_cover" data-lazy-src="https://i.loli.net/2020/08/29/PycYU1n63olXjCm.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-30</div><div class="relatedPosts_title">Java下载工具类</div></div></a></div><div class="relatedPosts_item"><a href="/2020/08/30/Java解压工具类/" title="Java解压工具类"><img class="relatedPosts_cover" data-lazy-src="https://i.loli.net/2020/08/29/PycYU1n63olXjCm.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-30</div><div class="relatedPosts_title">Java解压工具类</div></div></a></div><div class="relatedPosts_item"><a href="/2020/08/30/Jdk动态代理和Cglib动态代理/" title="Jdk动态代理和Cglib动态代理"><img class="relatedPosts_cover" data-lazy-src="https://i.loli.net/2020/08/29/PycYU1n63olXjCm.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-30</div><div class="relatedPosts_title">Jdk动态代理和Cglib动态代理</div></div></a></div><div class="relatedPosts_item"><a href="/2020/08/30/Lombok使用/" title="Lombok使用"><img class="relatedPosts_cover" data-lazy-src="https://i.loli.net/2020/08/29/PycYU1n63olXjCm.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-30</div><div class="relatedPosts_title">Lombok使用</div></div></a></div><div class="relatedPosts_item"><a href="/2020/08/30/Stream流转换/" title="Stream流转换"><img class="relatedPosts_cover" data-lazy-src="https://i.loli.net/2020/08/29/PycYU1n63olXjCm.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-30</div><div class="relatedPosts_title">Stream流转换</div></div></a></div><div class="relatedPosts_item"><a href="/2020/08/30/StringRedisTemplate常用方法/" title="StringRedisTemplate常用方法"><img class="relatedPosts_cover" data-lazy-src="https://i.loli.net/2020/08/29/PycYU1n63olXjCm.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-30</div><div class="relatedPosts_title">StringRedisTemplate常用方法</div></div></a></div></div></div></article></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2020 By Kira Rabbit</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><section id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font_plus" type="button" title="放大字体"><i class="fas fa-plus"></i></button><button id="font_minus" type="button" title="缩小字体"><i class="fas fa-minus"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></section><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module" defer></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js" async></script><div class="js-pjax"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script src="/js/third-party/ClickShowText.js" async="async"></script></div></body></html>

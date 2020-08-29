@@ -1,196 +1,189 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>你猜我穿过鸟居，有没有遇见神明 - 你猜我穿过鸟居，有没有遇见神明</title><meta name="description" content="三日月的鸟居"><meta name="keywords" content="自由"><meta name="author" content="Kira Rabbit"><meta name="copyright" content="Kira Rabbit"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="https://i.loli.net/2020/08/29/euWXL4ENrA8cQtk.gif"><link rel="canonical" href="https://kirarabbit.github.io/"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin="crossorigin"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta property="og:type" content="website"><meta property="og:title" content="你猜我穿过鸟居，有没有遇见神明"><meta property="og:url" content="https://kirarabbit.github.io/"><meta property="og:site_name" content="你猜我穿过鸟居，有没有遇见神明"><meta property="og:description" content="三日月的鸟居"><meta property="og:image" content="https://i.loli.net/2020/08/29/euWXL4ENrA8cQtk.gif"><meta property="article:published_time" content="2020-08-29T18:37:37.031Z"><meta property="article:modified_time" content="2020-08-29T18:37:37.031Z"><meta name="twitter:card" content="summary"><script>var activateDarkMode = function () {
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#000')
+  }
+}
+var activateLightMode = function () {
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#fff')
+  }
+}
 
-  
-  <title>Hexo</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/index.html">
-<meta property="og:site_name" content="Hexo">
-<meta property="og:locale" content="en_US">
-<meta property="article:author" content="John Doe">
-<meta name="twitter:card" content="summary">
-  
-    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  
-<link rel="stylesheet" href="/css/style.css">
+var getCookies = function (name) {
+  const value = `; ${document.cookie}`
+  const parts = value.split(`; ${name}=`)
+  if (parts.length === 2) return parts.pop().split(';').shift()
+}
 
-<meta name="generator" content="Hexo 5.1.1"></head>
+var autoChangeMode = 'false'
+var t = getCookies('theme')
+if (autoChangeMode === '1') {
+  var isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+  var isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+  var isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
 
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Hexo</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
-      </div>
-    </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main">
-  
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/08/30/hello-world/" class="article-date">
-  <time datetime="2020-08-29T16:24:10.057Z" itemprop="datePublished">2020-08-30</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/08/30/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/30/hello-world/" data-id="ckefwe4ek00005t0fheokbw3c" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
+  if (t === undefined) {
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport) {
+      console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour <= 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+    }
+    window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+      if (Cookies.get('theme') === undefined) {
+        e.matches ? activateDarkMode() : activateLightMode()
+      }
+    })
+  } else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else if (autoChangeMode === '2') {
+  now = new Date()
+  hour = now.getHours()
+  isNight = hour <= 6 || hour >= 18
+  if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else {
+  if (t === 'dark') activateDarkMode()
+  else if (t === 'light') activateLightMode()
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  hexoversion: '5.1.1',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: true,
+  copyright: undefined,
+  ClickShowText: {"text":"○,×,△,□","fontSize":"23px"},
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  baiduPush: false,
+  highlightCopy: true,
+  highlightLang: true,
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: false    
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: false,
+  isHome: true,
+  isHighlightShrink: false,
+  isSidebar: false,
+  postUpdate: '2020-08-30 02:37:37'
+}</script><noscript><style>
+#nav {
+  opacity: 1
+}
+.justified-gallery img {
+  opacity: 1
+}
+</style></noscript><meta name="generator" content="Hexo 5.1.1"></head><body><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" data-lazy-src="https://i.loli.net/2020/08/29/euWXL4ENrA8cQtk.gif" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">15</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">10</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/movie/"><i class="fa-fw fas fa-video"></i><span> 视频</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div id="body-wrap"><header class="full_page" id="page-header" style="background-image: url(https://i.loli.net/2020/08/29/ZqG52V3Cp1scaLv.jpg)"><nav id="nav"><span class="pull-left" id="blog_name"><a class="blog_title" id="site-name" href="/">你猜我穿过鸟居，有没有遇见神明</a></span><span class="pull-right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/movie/"><i class="fa-fw fas fa-video"></i><span> 视频</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><span class="toggle-menu close"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="site-info"><h1 id="site_title">你猜我穿过鸟居，有没有遇见神明</h1><div id="site_subtitle"><span id="subtitle"></span></div><div id="site_social_icons"><a class="social-icon" href="https://github.com/kirarabbit" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="kira:kirarabbit@163.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div id="scroll_down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout_page" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="post_cover left_radius"><a href="/2020/08/30/Mysql%E5%88%86%E6%97%B6%E6%AE%B5%E6%9F%A5%E8%AF%A2l/" title="Mysql分时段查询">     <img class="post_bg" data-lazy-src="https://i.loli.net/2020/08/29/PycYU1n63olXjCm.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Mysql分时段查询"></a></div><div class="recent-post-info"><a class="article-title" href="/2020/08/30/Mysql%E5%88%86%E6%97%B6%E6%AE%B5%E6%9F%A5%E8%AF%A2l/" title="Mysql分时段查询">Mysql分时段查询</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2020-08-29T18:34:02.000Z" title="发表于 2020-08-30 02:34:02">2020-08-30</time></span></div><div class="content">Mysql分时段查询
+12345678910111213141516171819202122232425262728查询今天24小时 (按小时段)        SELECT  *        FROM tableName        where TO_DAYS(create_time) = TO_DAYS(NOW())        GROUP BY DATE_FORMAT(create_time,&#x27;%H&#x27;);        ##查询昨天24小时(按小时段)        SELECT *        FROM tableName        WHERE TO_DAYS( NOW( ) ) - TO_DAYS( create_time) = 1		GROUP BY DATE_FORMAT(create_time,&#x27;%H&#x27;);#查询前7天        SELECT        *        FROM tableName         WHERE TO_DAYS( NOW( ) ) - TO_DAYS( create_time)  ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/2020/08/30/Lombok%E4%BD%BF%E7%94%A8/" title="Lombok使用">     <img class="post_bg" data-lazy-src="https://i.loli.net/2020/08/29/PycYU1n63olXjCm.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Lombok使用"></a></div><div class="recent-post-info"><a class="article-title" href="/2020/08/30/Lombok%E4%BD%BF%E7%94%A8/" title="Lombok使用">Lombok使用</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2020-08-29T18:33:01.000Z" title="发表于 2020-08-30 02:33:01">2020-08-30</time></span></div><div class="content">Lombok常用注解
 
 
-  
-
-
-</section>
-        
-          <aside id="sidebar">
-  
-    
-
-  
-    
-
-  
-    
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2020/08/30/hello-world/">Hello World</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2020 John Doe<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
-
-  
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-
-  
-<script src="/fancybox/jquery.fancybox.pack.js"></script>
+注解
+说明
+备注
 
 
 
-
-<script src="/js/script.js"></script>
-
-
+@Setter
+生成setter方法,final变量不包含
 
 
-  </div>
-</body>
-</html>
+
+@Getter
+生成getter方法,final变量不包含
+
+
+
+@NoArgsConstructor
+生成空参构造
+
+
+
+@AllArgsConstructor
+生成全部参数构造
+
+
+
+@RequiredArgsConstructor
+将标记为@NoNull的属性生成一个构造器
+如果运行中标记为@NoNull的属性为null,会抛出空指针异常。
+
+
+@ToString
+生成所有属性的toString()方法
+
+
+
+@EqualsAndHashCode
+生成equals()方法和hashCode方法
+
+
+
+@Data
+=@Setter+@Getter+@EqualsAndHashCode+@NoArgsConstructor
+@Data直接修饰POJO or beans， getter所有的变量，setter所有不为final的变量。如果你不需要默认的生成方式，直接填写你需要的annotation的就可以了。默认生成的所有的annotation都是public的，如果需要 ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/2020/08/30/%E5%89%8D%E7%AB%AF%E4%B8%8B%E6%8B%89%E6%A1%86%E6%A8%A1%E7%B3%8A%E6%90%9C%E7%B4%A2%E5%AE%9E%E7%8E%B0/" title="前端下拉框模糊搜索实现">     <img class="post_bg" data-lazy-src="https://i.loli.net/2020/08/29/PycYU1n63olXjCm.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="前端下拉框模糊搜索实现"></a></div><div class="recent-post-info"><a class="article-title" href="/2020/08/30/%E5%89%8D%E7%AB%AF%E4%B8%8B%E6%8B%89%E6%A1%86%E6%A8%A1%E7%B3%8A%E6%90%9C%E7%B4%A2%E5%AE%9E%E7%8E%B0/" title="前端下拉框模糊搜索实现">前端下拉框模糊搜索实现</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2020-08-29T18:31:06.000Z" title="发表于 2020-08-30 02:31:06">2020-08-30</time></span></div><div class="content">datalist效果实现datalist效果实现，包括模糊搜索，自动补全，下拉选项
+123&lt;input style=&quot;width: 150px;height: 30px;&quot; id=&quot;select-sdkInt-group&quot; list=&quot;sdkIntList&quot; placeholder=&quot;SdkInt&quot;&gt;&lt;datalist id=&quot;sdkIntList&quot; style=&quot;display: none;&quot;&gt; &lt;/datalist&gt;
+
+12345678910111213141516171819202122232425262728function selectSdkInt() &#123;    $.ajax(&#x27;/XXXX/XXXXX&#x27;, &#123;        dataType: &#x27;json&#x27;,        type: &#x27;GET&#x27;,        data: function  ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/2020/08/30/StringRedisTemplate%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/" title="StringRedisTemplate常用方法">     <img class="post_bg" data-lazy-src="https://i.loli.net/2020/08/29/PycYU1n63olXjCm.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="StringRedisTemplate常用方法"></a></div><div class="recent-post-info"><a class="article-title" href="/2020/08/30/StringRedisTemplate%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/" title="StringRedisTemplate常用方法">StringRedisTemplate常用方法</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2020-08-29T18:29:31.000Z" title="发表于 2020-08-30 02:29:31">2020-08-30</time></span></div><div class="content">StringRedisTemplate常用方法12345678910111213stringRedisTemplate.opsForValue().set(&quot;test&quot;, &quot;100&quot;,60*10,TimeUnit.SECONDS);//向redis里存入数据和设置缓存时间stringRedisTemplate.boundValueOps(&quot;test&quot;).increment(-1);//val做-1操作stringRedisTemplate.opsForValue().get(&quot;test&quot;)//根据key获取缓存中的valstringRedisTemplate.boundValueOps(&quot;test&quot;).increment(1);//val +1stringRedisTemplate.getExpire(&quot;test&quot;)//根据key获取过期时间stringRedisTemplate.getExpire(&quot;test&quot;,TimeUnit.SECONDS) ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/2020/08/30/AspectJ%E7%9A%84Execution%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="AspectJ的Execution表达式">     <img class="post_bg" data-lazy-src="https://i.loli.net/2020/08/29/PycYU1n63olXjCm.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="AspectJ的Execution表达式"></a></div><div class="recent-post-info"><a class="article-title" href="/2020/08/30/AspectJ%E7%9A%84Execution%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="AspectJ的Execution表达式">AspectJ的Execution表达式</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2020-08-29T18:23:00.000Z" title="发表于 2020-08-30 02:23:00">2020-08-30</time></span></div><div class="content">在使用spring框架配置AOP的时候，不管是通过XML配置文件还是注解的方式都需要定义pointcut”切入点”例如定义切入点表达式  execution (* com.sample.service.impl...(..))execution()是最常用的切点函数，其语法如下所示：
+ 整个表达式可以分为五个部分： 1、execution(): 表达式主体。 2、第一个号：表示返回类型，号表示所有的类型。 3、包名：表示需要拦截的包名，后面的两个句点表示当前包和当前包的所有子包，com.sample.service.impl包、子孙包下所有类的方法。 4、第二个号：表示类名，号表示所有的类。 5、*(..):最后这个星号表示方法名，*号表示所有的方法，后面括弧里面表示方法的参数，两个句点表示任何参数。
+AspectJ的Execution表达式execution()execution()是最常用的切点函数，其语法如下所示：
+execution(&lt;修饰符模式&gt;? &lt;返回类型模式&gt; &lt;方法名模式&gt;(&lt;参数模式&gt;) &lt;异常模式&gt;?)  ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/2020/08/30/Jdk%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E5%92%8CCglib%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86/" title="Jdk动态代理和Cglib动态代理">     <img class="post_bg" data-lazy-src="https://i.loli.net/2020/08/29/PycYU1n63olXjCm.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Jdk动态代理和Cglib动态代理"></a></div><div class="recent-post-info"><a class="article-title" href="/2020/08/30/Jdk%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E5%92%8CCglib%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86/" title="Jdk动态代理和Cglib动态代理">Jdk动态代理和Cglib动态代理</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2020-08-29T18:21:49.000Z" title="发表于 2020-08-30 02:21:49">2020-08-30</time></span></div><div class="content">Jdk动态代理和Cglib动态代理Jdk动态代理和Cglib动态代理区别
+Jdk代理：基于接口的代理，一定是基于接口，会生成目标对象的接口类型的子对象。
+Cglib代理：基于类的代理，不需要基于接口，会生成目标对象类型的子对象。
+
+总结:
+
+spring在运行期，生成动态代理对象，不需要特殊的编译器.
+spring有两种代理方式：
+若目标对象实现了若干接口，spring使用JDK的java.lang.reflect.Proxy类代理。
+若目标对象没有实现任何接口，spring使用CGLIB库生成目标对象的子类。
+
+
+使用该方式时需要注意:
+对接口创建代理优于对类创建代理，spring推荐面向接口编程,,因为这样会产生更加松耦合的系统，所以spring默认是使用JDK代理。对类代理是让遗留系统或无法实现接口的第三方类库同样可以得到通知，这种方式应该是备用方案。
+标记为final的方法不能够被通知。spring是为目标类产生子类。任何需要被通知的方法都被复写，将通知织入。final方法是不允许重写的。
+spring只支持方法连接点：不提供属性接入点，spring的观点是属性拦截破坏了封装。 ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/2020/08/30/Java%E5%B8%B8%E7%94%A8%E6%B3%A8%E8%A7%A3%EF%BC%88%E4%B8%8D%E5%AE%9A%E6%9C%9F%E6%9B%B4%E6%96%B0%EF%BC%89/" title="Java常用注解（不定期更新）">     <img class="post_bg" data-lazy-src="https://i.loli.net/2020/08/29/PycYU1n63olXjCm.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Java常用注解（不定期更新）"></a></div><div class="recent-post-info"><a class="article-title" href="/2020/08/30/Java%E5%B8%B8%E7%94%A8%E6%B3%A8%E8%A7%A3%EF%BC%88%E4%B8%8D%E5%AE%9A%E6%9C%9F%E6%9B%B4%E6%96%B0%EF%BC%89/" title="Java常用注解（不定期更新）">Java常用注解（不定期更新）</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2020-08-29T18:18:48.000Z" title="发表于 2020-08-30 02:18:48">2020-08-30</time></span></div><div class="content">@ResponseBodyresponse body 中，一般在异步获取数据时使用【也就是AJAX】，在使用 @RequestMapping后，返回值通常解析为跳转路径，但是加上 @ResponseBody 后返回结果不会被解析为跳转路径，而是直接写入 HTTP response body 中。 比如异步获取 json 数据，加上 @ResponseBody 后，会直接返回 json 数据。作用:把方法的返回值转换为json返回
+@Component spring扫描这个组件,将这个注解的类初始化为bean,纳入到ioc的容器里controller 控制层service     服务层dao    数据访问层当一个类的角色不知道是哪一层的时候,就使用@Component
+对象只要在ioc的容器中,在任何地方都可以用AutoWired注入加入@Component,这样这个类就自动加入了spring里面去了
+@ConfigurationProperties@ConfigurationProperties 将配置文件的属性和当前类的成员变量进行绑定,当前这个注解不会初始化当前类对象
+@Res ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/2020/08/30/%E5%B7%A5%E5%85%B7%E7%B1%BB%E3%80%81%E5%8C%85%E8%A3%85%E7%B1%BB%E3%80%81abstract%E5%92%8C%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95/" title="工具类、包装类、abstract和模板方法">     <img class="post_bg" data-lazy-src="https://i.loli.net/2020/08/29/PycYU1n63olXjCm.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="工具类、包装类、abstract和模板方法"></a></div><div class="recent-post-info"><a class="article-title" href="/2020/08/30/%E5%B7%A5%E5%85%B7%E7%B1%BB%E3%80%81%E5%8C%85%E8%A3%85%E7%B1%BB%E3%80%81abstract%E5%92%8C%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95/" title="工具类、包装类、abstract和模板方法">工具类、包装类、abstract和模板方法</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2020-08-29T18:17:32.000Z" title="发表于 2020-08-30 02:17:32">2020-08-30</time></span></div><div class="content">工具类存放了某一类事物的工具方法的类.工具类存放的包:工具包(util,utils,tool/tools,helper,helpers),存放工具类.
+工具类如何设计: 工具在开发中其实只需要存在一份即可.1): 如果工具方法没有使用static修饰,说明工具方法得使用工具类的对象来调用.此时把工具类设计为单例的.2): 如果工具方法全部使用static修饰,说明工具方法只需要使用工具类名调用即可.此时必须把工具类的构造器私有化(防止创建工具类对象调用静态方法).
+一般的,首选第二种,简单. 在JDK中提供的工具类都是第二种. 如java.util.Arrays类.
+
+包装类
+12345678910基本数据类型     Java包装类byte            Byteshort           Shortint             Integerlong            Longchar            Characterfloat           Floatdouble          Doubleboolean         Boolean
+手动装 ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/2020/08/30/Java%E4%B8%8B%E8%BD%BD%E5%B7%A5%E5%85%B7%E7%B1%BB/" title="Java下载工具类">     <img class="post_bg" data-lazy-src="https://i.loli.net/2020/08/29/PycYU1n63olXjCm.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Java下载工具类"></a></div><div class="recent-post-info"><a class="article-title" href="/2020/08/30/Java%E4%B8%8B%E8%BD%BD%E5%B7%A5%E5%85%B7%E7%B1%BB/" title="Java下载工具类">Java下载工具类</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2020-08-29T18:16:33.000Z" title="发表于 2020-08-30 02:16:33">2020-08-30</time></span></div><div class="content">maven依赖12345&lt;dependency&gt;    &lt;groupId&gt;com.squareup.okhttp3&lt;&#x2F;groupId&gt;    &lt;artifactId&gt;okhttp&lt;&#x2F;artifactId&gt;    &lt;version&gt;4.5.0&lt;&#x2F;version&gt;&lt;&#x2F;dependency&gt;
+
+
+123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172package com.caiji.apkdownload;import okhttp3.*;import org.slf4j.Logger;import org.slf4j.LoggerFactory;import java.io.File;import java.io.FileOutputStre ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/2020/08/30/Stream%E6%B5%81%E8%BD%AC%E6%8D%A2/" title="Stream流转换">     <img class="post_bg" data-lazy-src="https://i.loli.net/2020/08/29/PycYU1n63olXjCm.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Stream流转换"></a></div><div class="recent-post-info"><a class="article-title" href="/2020/08/30/Stream%E6%B5%81%E8%BD%AC%E6%8D%A2/" title="Stream流转换">Stream流转换</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2020-08-29T18:15:25.000Z" title="发表于 2020-08-30 02:15:25">2020-08-30</time></span></div><div class="content">Stream流List –&gt;map&lt;String, String&gt;1Map&lt;String, String&gt; map = list.stream().collect(Collectors.toMap(Person::getName, Person::getWork));
+
+List –&gt;map&lt;String, T&gt; 操作属性1Map&lt;String, String&gt; map = list.stream().collect(Collectors.toMap(Person::getName,  a-&gt;&quot;姓名:&quot;+a.getName()));
+
+
+List –&gt;map&lt;String, Object&gt;1Map&lt;String, List&lt;Person&gt;&gt; collect = list.stream().collect(Collectors.groupingBy(Person::getName));
+
+List 类型转换12List&lt;String&gt; midOnli ...</div></div></div><nav id="pagination"><div class="pagination"><span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside_content" id="aside_content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><img class="avatar-img" data-lazy-src="https://i.loli.net/2020/08/29/euWXL4ENrA8cQtk.gif" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">Kira Rabbit</div><div class="author-info__description">三日月的鸟居</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives"><div class="headline">文章</div><div class="length_num">15</div></a></div><div class="card-info-data-item is-center">      <a href="/tags"><div class="headline">标签</div><div class="length_num">10</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/KiraRabbit"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/kirarabbit" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="kira:kirarabbit@163.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div></div><div class="card-widget card-announcement"><div class="card-content"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">成人不自在，自在不成人</div></div></div><div class="card-widget card-recent-post"><div class="card-content"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-recent-item"><div class="aside-recent-post"><a class="aside-post-cover" href="/2020/08/30/Mysql%E5%88%86%E6%97%B6%E6%AE%B5%E6%9F%A5%E8%AF%A2l/" title="Mysql分时段查询"><img class="aside-post-bg" data-lazy-src="https://i.loli.net/2020/08/29/PycYU1n63olXjCm.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Mysql分时段查询"/></a><div class="aside-post-info"><a class="aside-post-title" href="/2020/08/30/Mysql%E5%88%86%E6%97%B6%E6%AE%B5%E6%9F%A5%E8%AF%A2l/" title="Mysql分时段查询">Mysql分时段查询</a><time class="aside-post_meta post-meta-date" datetime="2020-08-29T18:34:02.000Z" title="发表于 2020-08-30 02:34:02">2020-08-30</time></div></div><div class="aside-recent-post"><a class="aside-post-cover" href="/2020/08/30/Lombok%E4%BD%BF%E7%94%A8/" title="Lombok使用"><img class="aside-post-bg" data-lazy-src="https://i.loli.net/2020/08/29/PycYU1n63olXjCm.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Lombok使用"/></a><div class="aside-post-info"><a class="aside-post-title" href="/2020/08/30/Lombok%E4%BD%BF%E7%94%A8/" title="Lombok使用">Lombok使用</a><time class="aside-post_meta post-meta-date" datetime="2020-08-29T18:33:01.000Z" title="发表于 2020-08-30 02:33:01">2020-08-30</time></div></div><div class="aside-recent-post"><a class="aside-post-cover" href="/2020/08/30/%E5%89%8D%E7%AB%AF%E4%B8%8B%E6%8B%89%E6%A1%86%E6%A8%A1%E7%B3%8A%E6%90%9C%E7%B4%A2%E5%AE%9E%E7%8E%B0/" title="前端下拉框模糊搜索实现"><img class="aside-post-bg" data-lazy-src="https://i.loli.net/2020/08/29/PycYU1n63olXjCm.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="前端下拉框模糊搜索实现"/></a><div class="aside-post-info"><a class="aside-post-title" href="/2020/08/30/%E5%89%8D%E7%AB%AF%E4%B8%8B%E6%8B%89%E6%A1%86%E6%A8%A1%E7%B3%8A%E6%90%9C%E7%B4%A2%E5%AE%9E%E7%8E%B0/" title="前端下拉框模糊搜索实现">前端下拉框模糊搜索实现</a><time class="aside-post_meta post-meta-date" datetime="2020-08-29T18:31:06.000Z" title="发表于 2020-08-30 02:31:06">2020-08-30</time></div></div><div class="aside-recent-post"><a class="aside-post-cover" href="/2020/08/30/StringRedisTemplate%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/" title="StringRedisTemplate常用方法"><img class="aside-post-bg" data-lazy-src="https://i.loli.net/2020/08/29/PycYU1n63olXjCm.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="StringRedisTemplate常用方法"/></a><div class="aside-post-info"><a class="aside-post-title" href="/2020/08/30/StringRedisTemplate%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/" title="StringRedisTemplate常用方法">StringRedisTemplate常用方法</a><time class="aside-post_meta post-meta-date" datetime="2020-08-29T18:29:31.000Z" title="发表于 2020-08-30 02:29:31">2020-08-30</time></div></div><div class="aside-recent-post"><a class="aside-post-cover" href="/2020/08/30/AspectJ%E7%9A%84Execution%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="AspectJ的Execution表达式"><img class="aside-post-bg" data-lazy-src="https://i.loli.net/2020/08/29/PycYU1n63olXjCm.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="AspectJ的Execution表达式"/></a><div class="aside-post-info"><a class="aside-post-title" href="/2020/08/30/AspectJ%E7%9A%84Execution%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="AspectJ的Execution表达式">AspectJ的Execution表达式</a><time class="aside-post_meta post-meta-date" datetime="2020-08-29T18:23:00.000Z" title="发表于 2020-08-30 02:23:00">2020-08-30</time></div></div></div></div></div><div class="card-widget card-tags"><div class="card-content"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href='/tags/Java/' style='font-size:19px; color:rgb(188, 116, 58)'>Java</a><a href='/tags/Js/' style='font-size:19px; color:rgb(110, 4, 2)'>Js</a><a href='/tags/Mysql/' style='font-size:18px; color:rgb(71, 154, 74)'>Mysql</a><a href='/tags/Nginx/' style='font-size:21px; color:rgb(111, 105, 137)'>Nginx</a><a href='/tags/Redis/' style='font-size:18px; color:rgb(47, 36, 73)'>Redis</a><a href='/tags/Stream%E6%B5%81/' style='font-size:18px; color:rgb(47, 150, 147)'>Stream流</a><a href='/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/' style='font-size:18px; color:rgb(59, 76, 148)'>中间件</a><a href='/tags/%E5%89%8D%E7%AB%AF/' style='font-size:19px; color:rgb(186, 34, 72)'>前端</a><a href='/tags/%E5%B7%A5%E5%85%B7%E7%B1%BB/' style='font-size:16px; color:rgb(67, 92, 93)'>工具类</a><a href='/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/' style='font-size:20px; color:rgb(198, 43, 69)'>设计模式</a></div></div></div><div class="card-widget card-archives"><div class="card-content"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2020/08/"><span class="card-archive-list-date">八月 2020</span><span class="card-archive-list-count">15</span></a></li></ul></div></div><div class="card-widget card-webinfo"><div class="card-content"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="webinfo-article-name">文章数目 :</div><div class="webinfo-article-count">15</div></div><div class="webinfo-item"><div class="webinfo-runtime-name">已运行时间 :</div><div class="webinfo-runtime-count" id="webinfo-runtime-count" publish_date="8/18/2017 00:00:00">     </div></div><div class="webinfo-item">      <div class="webinfo-site-uv-name">本站访客数 :</div><div class="webinfo-site-uv-count" id="busuanzi_value_site_uv"></div></div><div class="webinfo-item"><div class="webinfo-site-name">本站总访问量 :</div><div class="webinfo-site-pv-count" id="busuanzi_value_site_pv"></div></div></div></div></div></div></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2020 By Kira Rabbit</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><section id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></section><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module" defer></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js" async></script><div class="js-pjax"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script src="/js/third-party/ClickShowText.js" async="async"></script></div></body></html>
