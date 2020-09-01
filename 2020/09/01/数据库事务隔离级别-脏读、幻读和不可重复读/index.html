@@ -1,0 +1,237 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>数据库事务隔离级别-----脏读、幻读和不可重复读 | 你猜我穿过鸟居，有没有遇见神明</title><meta name="description" content="数据库事务隔离级别-----脏读、幻读和不可重复读"><meta name="keywords" content="Mysql"><meta name="author" content="Kira Rabbit"><meta name="copyright" content="Kira Rabbit"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="https://i.loli.net/2020/08/29/euWXL4ENrA8cQtk.gif"><link rel="canonical" href="https://kirarabbit.github.io/2020/09/01/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB-%E8%84%8F%E8%AF%BB%E3%80%81%E5%B9%BB%E8%AF%BB%E5%92%8C%E4%B8%8D%E5%8F%AF%E9%87%8D%E5%A4%8D%E8%AF%BB/"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin="crossorigin"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta property="og:type" content="article"><meta property="og:title" content="数据库事务隔离级别-----脏读、幻读和不可重复读"><meta property="og:url" content="https://kirarabbit.github.io/2020/09/01/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB-%E8%84%8F%E8%AF%BB%E3%80%81%E5%B9%BB%E8%AF%BB%E5%92%8C%E4%B8%8D%E5%8F%AF%E9%87%8D%E5%A4%8D%E8%AF%BB/"><meta property="og:site_name" content="你猜我穿过鸟居，有没有遇见神明"><meta property="og:description" content="数据库事务隔离级别-----脏读、幻读和不可重复读"><meta property="og:image" content="https://kirarabbit.github.io/2020/09/01/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB-%E8%84%8F%E8%AF%BB%E3%80%81%E5%B9%BB%E8%AF%BB%E5%92%8C%E4%B8%8D%E5%8F%AF%E9%87%8D%E5%A4%8D%E8%AF%BB/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB-----%E8%84%8F%E8%AF%BB%E3%80%81%E5%B9%BB%E8%AF%BB%E5%92%8C%E4%B8%8D%E5%8F%AF%E9%87%8D%E5%A4%8D%E8%AF%BB"><meta property="article:published_time" content="2020-09-01T07:53:26.000Z"><meta property="article:modified_time" content="2020-09-01T08:35:01.188Z"><meta name="twitter:card" content="summary"><script>var activateDarkMode = function () {
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#000')
+  }
+}
+var activateLightMode = function () {
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#fff')
+  }
+}
+
+var getCookies = function (name) {
+  const value = `; ${document.cookie}`
+  const parts = value.split(`; ${name}=`)
+  if (parts.length === 2) return parts.pop().split(';').shift()
+}
+
+var autoChangeMode = 'false'
+var t = getCookies('theme')
+if (autoChangeMode === '1') {
+  var isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+  var isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+  var isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined) {
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport) {
+      console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour <= 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+    }
+    window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+      if (Cookies.get('theme') === undefined) {
+        e.matches ? activateDarkMode() : activateLightMode()
+      }
+    })
+  } else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else if (autoChangeMode === '2') {
+  now = new Date()
+  hour = now.getHours()
+  isNight = hour <= 6 || hour >= 18
+  if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else {
+  if (t === 'dark') activateDarkMode()
+  else if (t === 'light') activateLightMode()
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.css"><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.js" defer></script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  hexoversion: '5.1.1',
+  algolia: {"appId":"JOW3OWRT5K","apiKey":"9f234c08de03fc80e5a5ef66538c77a5","indexName":"KiraRabbit","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: true,
+  copyright: undefined,
+  ClickShowText: {"text":"○,×,△,□","fontSize":"23px"},
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  baiduPush: false,
+  highlightCopy: true,
+  highlightLang: true,
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: false    
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isSidebar: false,
+  postUpdate: '2020-09-01 16:35:01'
+}</script><noscript><style>
+#nav {
+  opacity: 1
+}
+.justified-gallery img {
+  opacity: 1
+}
+</style></noscript><div class="aplayer" data-id="85632977" data-server="netease" data-type="playlist" data-fixed="true" data-listFolded="false" data-order="random" data-preload="none"></div><link rel="stylesheet" href="https://cdn.bootcss.com/aplayer/1.10.1/APlayer.min.css"><script src="https://cdn.bootcss.com/aplayer/1.10.1/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/meting@1.2.0/dist/Meting.min.js"></script><meta name="generator" content="Hexo 5.1.1"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" data-lazy-src="https://i.loli.net/2020/08/29/euWXL4ENrA8cQtk.gif" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">18</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">11</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">1</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/bangumis/"><i class="fa-fw fas fa-smile-o"></i><span> 追番</span></a></div></div></div></div><div id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://i.loli.net/2020/08/29/3HiIhM4QvawT7CL.jpg)"><nav id="nav"><span class="pull-left" id="blog_name"><a class="blog_title" id="site-name" href="/">你猜我穿过鸟居，有没有遇见神明</a></span><span class="pull-right menus"><div id="search_button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/bangumis/"><i class="fa-fw fas fa-smile-o"></i><span> 追番</span></a></div></div><span class="toggle-menu close"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><div id="post-title"><div class="posttitle">数据库事务隔离级别-----脏读、幻读和不可重复读</div></div><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-09-01T07:53:26.000Z" title="发表于 2020-09-01 15:53:26">2020-09-01</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2020-09-01T08:35:01.188Z" title="更新于 2020-09-01 16:35:01">2020-09-01</time></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>3分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><p>一、脏读、不可重复读、幻读</p>
+<p>1、脏读：脏读就是指当一个事务正在访问数据，并且对数据进行了修改，而这种修改还没有提交到数据库中，这时，另外一个事务也访问这个数据，然后使用了这个数据。</p>
+<p>例如：</p>
+<p>张三的工资为5000,事务A中把他的工资改为8000,但事务A尚未提交。</p>
+<p>与此同时，</p>
+<p>事务B正在读取张三的工资，读取到张三的工资为8000。</p>
+<p>随后，</p>
+<p>事务A发生异常，而回滚了事务。张三的工资又回滚为5000。</p>
+<p>最后，</p>
+<p>事务B读取到的张三工资为8000的数据即为脏数据，事务B做了一次脏读。<br>2、不可重复读：是指在一个事务内，多次读同一数据。在这个事务还没有结束时，另外一个事务也访问该同一数据。那么，在第一个事务中的两次读数据之间，由于第二个事务的修改，那么第一个事务两次读到的的数据可能是不一样的。这样就发生了在一个事务内两次读到的数据是不一样的，因此称为是不可重复读。</p>
+<p>例如：</p>
+<p>在事务A中，读取到张三的工资为5000，操作没有完成，事务还没提交。</p>
+<p>与此同时，</p>
+<p>事务B把张三的工资改为8000，并提交了事务。</p>
+<p>随后，</p>
+<p>在事务A中，再次读取张三的工资，此时工资变为8000。在一个事务中前后两次读取的结果并不致，导致了不可重复读。<br>3、幻读：是指当事务不是独立执行时发生的一种现象，例如第一个事务对一个表中的数据进行了修改，这种修改涉及到表中的全部数据行。同时，第二个事务也修改这个表中的数据，这种修改是向表中插入一行新数据。那么，以后就会发生操作第一个事务的用户发现表中还有没有修改的数据行，就好象发生了幻觉一样。</p>
+<p>例如：</p>
+<p>目前工资为5000的员工有10人，事务A读取所有工资为5000的人数为10人。</p>
+<p>此时，</p>
+<p>事务B插入一条工资也为5000的记录。</p>
+<p>这是，事务A再次读取工资为5000的员工，记录为11人。此时产生了幻读。<br>4、提醒 </p>
+<p>不可重复读的重点是修改： </p>
+<p>同样的条件，你读取过的数据，再次读取出来发现值不一样了</p>
+<p>幻读的重点在于新增或者删除： </p>
+<p>同样的条件，第 1 次和第 2 次读出来的记录数不一样<br>5、第一类丢失更新<br>A事务撤销时，把已经提交的B事务的更新数据覆盖了。例如： </p>
+<table>
+<thead>
+<tr>
+<th>时间</th>
+<th>取款事务A</th>
+<th>转账事务B</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>T1</td>
+<td>开始事务</td>
+<td></td>
+</tr>
+<tr>
+<td>T2</td>
+<td></td>
+<td>开始事务</td>
+</tr>
+<tr>
+<td>T3</td>
+<td>查询账户余额为1000元</td>
+<td></td>
+</tr>
+<tr>
+<td>T4</td>
+<td></td>
+<td>查询账户余额为1000元</td>
+</tr>
+<tr>
+<td>T5</td>
+<td></td>
+<td>汇入100元，余额改为1100</td>
+</tr>
+<tr>
+<td>T6</td>
+<td></td>
+<td>提交事务</td>
+</tr>
+<tr>
+<td>T7</td>
+<td>取出100元，余额改为900</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>这时候取款事务A撤销事务，余额恢复为1000，这就丢失了更新。<br>6、第二类丢失更新<br>A事务覆盖B事务已经提交的数据，造成B事务所做的操作丢失 </p>
+<table>
+<thead>
+<tr>
+<th>时间</th>
+<th>取款事务A</th>
+<th>转账事务B</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>T1</td>
+<td></td>
+<td>开始事务</td>
+</tr>
+<tr>
+<td>T2</td>
+<td>开始事务</td>
+<td></td>
+</tr>
+<tr>
+<td>T3</td>
+<td>查询账户余额为1000元</td>
+<td></td>
+</tr>
+<tr>
+<td>T4</td>
+<td>查询账户余额为1000元</td>
+<td></td>
+</tr>
+<tr>
+<td>T5</td>
+<td></td>
+<td>取出100元，把余额改为900元</td>
+</tr>
+<tr>
+<td>T6</td>
+<td></td>
+<td>提交事务</td>
+</tr>
+<tr>
+<td>T7</td>
+<td>汇入100元</td>
+<td></td>
+</tr>
+<tr>
+<td>T8</td>
+<td>提交事务</td>
+<td></td>
+</tr>
+<tr>
+<td>T9</td>
+<td>把余额改为1100(丢失更新)</td>
+<td></td>
+</tr>
+<tr>
+<td>二、如何解决</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>为了解决上述问题，数据库通过锁机制解决并发访问的问题。根据锁定对象不同：分为行级锁和表级锁；根据并发事务锁定的关系上看：分为共享锁定和独占锁定，共享锁定会防止独占锁定但允许其他的共享锁定。而独占锁定既防止共享锁定也防止其他独占锁定。为了更改数据，数据库必须在进行更改的行上施加行独占锁定，insert、update、delete和selsct for update语句都会隐式采用必要的行锁定。<br>但是直接使用锁机制管理是很复杂的，基于锁机制，数据库给用户提供了不同的事务隔离级别，只要设置了事务隔离级别，数据库就会分析事务中的sql语句然后自动选择合适的锁。 </p>
+<p>不同的隔离级别对并发问题的解决情况如图：<br>| 隔离级别   | 脏读 |不可重复读 |幻读 |第一类丢失更新 |第二类丢失更新 |<br>| —- | —- |—- |—- |—- |<br>|READ UNCOMMITED | 允许  | 允许  | 允许 |  不允许| 允许 |<br>|READ COMMITED |  不允许 |  允许 | 允许 | 不允许 | 允许 |<br>|REPEATABLE READ | 不允许  | 不允许  | 不允许 | 不允许 | 不允许 |<br>|SERIALIZABLE| 不允许  | 不允许  | 不允许 | 不允许 | 不允许 |</p>
+<p>注意：事务的隔离级别和数据库并发性是成反比的，隔离级别越高，并发性越低。</p>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Kira Rabbit</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://kirarabbit.github.io/2020/09/01/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB-%E8%84%8F%E8%AF%BB%E3%80%81%E5%B9%BB%E8%AF%BB%E5%92%8C%E4%B8%8D%E5%8F%AF%E9%87%8D%E5%A4%8D%E8%AF%BB/">https://kirarabbit.github.io/2020/09/01/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB-%E8%84%8F%E8%AF%BB%E3%80%81%E5%B9%BB%E8%AF%BB%E5%92%8C%E4%B8%8D%E5%8F%AF%E9%87%8D%E5%A4%8D%E8%AF%BB/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://kirarabbit.github.io" target="_blank">你猜我穿过鸟居，有没有遇见神明</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Mysql/">Mysql</a></div><div class="post_share"><div class="social-share" data-image="/2020/09/01/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB-%E8%84%8F%E8%AF%BB%E3%80%81%E5%B9%BB%E8%AF%BB%E5%92%8C%E4%B8%8D%E5%8F%AF%E9%87%8D%E5%A4%8D%E8%AF%BB/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB-----%E8%84%8F%E8%AF%BB%E3%80%81%E5%B9%BB%E8%AF%BB%E5%92%8C%E4%B8%8D%E5%8F%AF%E9%87%8D%E5%A4%8D%E8%AF%BB" data-sites="wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2020/08/30/Mysql%E5%88%86%E6%97%B6%E6%AE%B5%E6%9F%A5%E8%AF%A2l/"><img class="next-cover" data-lazy-src="https://i.loli.net/2020/08/29/3HiIhM4QvawT7CL.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Mysql分时段查询</div></div></a></div></nav><div class="relatedPosts"><div class="relatedPosts_headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts_list"><div class="relatedPosts_item"><a href="/2020/08/30/Mysql分时段查询l/" title="Mysql分时段查询"><img class="relatedPosts_cover" data-lazy-src="https://i.loli.net/2020/08/29/3HiIhM4QvawT7CL.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-30</div><div class="relatedPosts_title">Mysql分时段查询</div></div></a></div></div></div></article></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2018 - 2020 By Kira Rabbit</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="icp"><a target="_blank" rel="noopener" href="http://beian.miit.gov.cn"><img class="icp-icon" src="/img/icp.png"/><span>浙ICP备20006564号</span></a></div></div></footer></div><section id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font_plus" type="button" title="放大字体"><i class="fas fa-plus"></i></button><button id="font_minus" type="button" title="缩小字体"><i class="fas fa-minus"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></section><div class="search-dialog" id="algolia-search"><div class="search-dialog__title" id="algolia-search-title">Algolia</div><div id="algolia-input-panel"><div id="algolia-search-input"></div></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-stats"></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module" defer></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js" async></script><script src="/js/search/algolia.js"></script><script>var endLoading = function () {
+  document.body.style.overflow = 'auto';
+  document.getElementById('loading-box').classList.add("loaded")
+}
+window.addEventListener('load',endLoading)</script><div class="js-pjax"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script defer="defer" id="ribbon_piao" mobile="false" src="/js/third-party/piao.js"></script><script src="/js/third-party/ClickShowText.js" async="async"></script></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"position":"right","width":300,"height":600},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body></html>
